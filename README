@@ -1,0 +1,26 @@
+=================== Description ================
+This plugins allows you send batch email to ticket assigned personal
+
+
+================== Installation ================
+
+Copy this plugin into vendor/plugins/
+
+
+================== Change Log ==================
+
+0.0.1 Finished implementation of basic features
+
+
+========== About me and this plugin ============
+
+Author: Jacky Leung
+
+I am a developer station in New Zealand, this plugin is an utilities
+designed to helps sending batch emails to particular person base on
+redmine Query result.
+
+As I have limited experience with Ruby on Rails plus this is my second
+open sources code. I am welcoming any open suggestion, optimization,
+improvements, and ideas that can helps make this plugins become more
+suitable for anyone.

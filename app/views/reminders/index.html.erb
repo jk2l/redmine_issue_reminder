@@ -1,0 +1,25 @@
+<div class="contextual">
+  <% #if User.current.allowed_to?(:add_subprojects, @project) %>
+    <%= link_to "New Reminder", {:controller => 'reminders', :action => 'new', :project_id => @project}, :class => 'icon icon-add' %>
+  <% #end %>
+</div>
+
+<h2>Issue Reminder</h2>
+
+<% if @reminders.empty? %>
+  <p class="nodata"><%= l(:label_no_data) %></p>
+<% else %>
+  <%= render :partial => 'list', :locals => {:reminders => @reminders} %>
+  <p class="pagination"><%= pagination_links_full @reminders_pages, @reminders_count %></p>
+<% end %>
+
+<% content_for :sidebar do %>
+  <%= render :partial => 'issues/sidebar' %>
+<% end %>
+
+<% content_for :header_tags do %>
+  <%= auto_discovery_link_tag(:atom, {:query_id => @query, :format => 'atom', :page => nil, :key => User.current.rss_key}, :title => l(:label_issue_plural)) %>
+  <%= auto_discovery_link_tag(:atom, {:action => 'changes', :query_id => @query, :format => 'atom', :page => nil, :key => User.current.rss_key}, :title => l(:label_changes_details)) %>
+<% end %>
+
+<%= context_menu :controller => 'issues', :action => 'context_menu' %>
