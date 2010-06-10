@@ -20,7 +20,10 @@ module MailerPatch
   module InstanceMethods
     def send_notification(reminder, recipient, issues)
       recipients recipient
-      body :issues => issues
+      body :reminder => reminder,
+           :recipient => recipient,
+           :issues => issues
+           
       render_multipart('send_notification', body)
     end
   end
