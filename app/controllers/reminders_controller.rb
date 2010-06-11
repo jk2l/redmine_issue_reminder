@@ -47,7 +47,9 @@ class RemindersController < ApplicationController
     @query.is_public = false unless User.current.allowed_to?(:manage_public_queries, @project) || User.current.admin?
 
     @query.column_names = nil
-    @query.add_filters(params[:fields], params[:operators], params[:values]) if params[:fields]
+    params[:fields].each do |field|
+      @query.add_filter(field, params[:operators][field], params[:values][field])
+    end if params[:fields]
     @query.group_by = "assigned_to"
 
     if request.post? && params[:confirm] && @reminder.save
@@ -63,7 +65,9 @@ class RemindersController < ApplicationController
 
       @query.name = params[:query][:name]
       @query.filters = {}
-      @query.add_filters(params[:fields], params[:operators], params[:values]) if params[:fields]
+      params[:fields].each do |field|
+        @query.add_filter(field, params[:operators][field], params[:values][field])
+      end if params[:fields]
       @query.attributes = params[:query]
       @query.project = nil if params[:query_is_for_all]
       @query.is_public = false unless User.current.allowed_to?(:manage_public_queries, @project) || User.current.admin?
