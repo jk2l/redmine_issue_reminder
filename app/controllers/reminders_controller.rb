@@ -24,7 +24,7 @@ class RemindersController < ApplicationController
     if @query.valid?
       limit = per_page_option
 
-      @issue_count = @query.id
+      @issue_count = @query.issue_count
       @issue_pages = Paginator.new self, @issue_count, limit, params['page']
       @issues = @query.issues(:include => [:assigned_to, :tracker, :priority, :category, :fixed_version],
         :order => sort_clause,
