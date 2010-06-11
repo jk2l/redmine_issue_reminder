@@ -86,11 +86,8 @@ class RemindersController < ApplicationController
   end
 
   def notify
-    mails = @reminder.notify_all
-
-    mails.each do |mail|
-      flash[:notice] = l(:notice_email_sent, mail)
-    end
+    @reminder.notify_all
+    flash[:notice] = "Emails have been sent out successfully"
     redirect_to :action => 'index', :project_id => @project
   end
 

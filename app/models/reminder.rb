@@ -22,11 +22,8 @@ class Reminder < ActiveRecord::Base
       users[issue.assigned_to] << issue
     end
 
-    mails = []
     users.each do |user, issues|
       ReminderMailer.deliver_send_notification(self, user.mail, issues)
-      mails << user.mail
     end
-    return mails
   end
 end
