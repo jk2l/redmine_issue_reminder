@@ -12,9 +12,11 @@ class RemindersController < ApplicationController
   include IssuesHelper
 
   def index
-    @reminders = Reminder.find(:all)
-    @reminders_count = @reminders.size
+    limit = per_page_option
+    @reminders_count = Reminder.count
     @reminders_pages = Paginator.new self, @reminders_count, per_page_option, params['page']
+    @reminders = Reminder.find(:all, :offset => @reminders_pages.current.offset, :limit => limit)
+    render :layout => !request.xhr?
   end
 
   def show
@@ -32,6 +34,7 @@ class RemindersController < ApplicationController
         :limit => limit)
       @issue_count_by_group = @query.issue_count_by_group
     end
+    render :layout => !request.xhr?
   rescue ActiveRecord::RecordNotFound
     render_404
   end
