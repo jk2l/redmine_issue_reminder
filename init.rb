@@ -1,10 +1,5 @@
 require 'redmine'
 
-require 'dispatcher'
-Dispatcher.to_prepare do
-  Mailer.send(:include, MailerPatch)
-end
-
 Redmine::Plugin.register :redmine_issue_reminder do
   name 'Redmine Issue Reminder plugin'
   author 'Jacky Leung'

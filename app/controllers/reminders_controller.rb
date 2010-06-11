@@ -86,24 +86,10 @@ class RemindersController < ApplicationController
   end
 
   def notify
+    mails = @reminder.notify
 
-    # TODO: Remove condition
-    @issues = @query.issues(:include => [:assigned_to], :conditions => ["assigned_to_id != 0"])
-
-    users = {}
-    @issues.each do |issue|
-      if issue.assigned_to == nil
-        # TODO: Replace this with proper handling
-        next
-      end
-
-      users[issue.assigned_to] = [] if users[issue.assigned_to] == nil
-      users[issue.assigned_to] << issue
-    end
-
-    users.each do |user, issues|
-      Mailer.deliver_send_notification(@reminder, user.mail, issues)
-      flash[:notice] = l(:notice_email_sent, User.current.mail)
+    mails.each do |mail|
+      flash[:notice] = l(:notice_email_sent, mail)
     end
     redirect_to :action => 'index', :project_id => @project
   end
