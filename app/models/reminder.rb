@@ -7,7 +7,7 @@ class Reminder < ActiveRecord::Base
 
   validates_presence_of :message
 
-  def notify
+  def notify_all
     # TODO: Remove condition
     list = query.issues(:include => [:assigned_to], :conditions => ["assigned_to_id != 0"])
 

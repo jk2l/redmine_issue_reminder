@@ -86,7 +86,7 @@ class RemindersController < ApplicationController
   end
 
   def notify
-    mails = @reminder.notify
+    mails = @reminder.notify_all
 
     mails.each do |mail|
       flash[:notice] = l(:notice_email_sent, mail)
