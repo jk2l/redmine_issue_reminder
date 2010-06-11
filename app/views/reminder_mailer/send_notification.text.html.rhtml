@@ -1,6 +1,6 @@
 <b><%= @reminder.message %></b><br>
 <ul>
 <% @issues.each do |issue| -%>
-<li><%= link_to "[#{issue.project.name}] ##{issue.id} #{issue.subject}", url_for(:controller => 'issues', :id => issue, :only_path => false) -%></li>
+<li><%= link_to "[#{issue.project.name}] ##{issue.id} #{issue.subject}", url_for(:controller => 'issues', :action => 'show', :id => issue, :only_path => false) -%></li>
 <% end -%>
 </ul>

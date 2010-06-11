@@ -1,5 +1,5 @@
 <%= @reminder.message %>
 
 <% @issues.each do |issue| -%>
-  <%= "[#{issue.project.name}] ##{issue.id} #{issue.subject}: #{url_for(:controller => 'issues', :id => issue, :only_path => false)}" %>
+  <%= "[#{issue.project.name}] ##{issue.id} #{issue.subject}: #{url_for(:controller => 'issues', :action => 'show', :id => issue, :only_path => false)}" %>
 <% end -%>
