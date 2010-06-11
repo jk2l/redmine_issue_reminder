@@ -4,13 +4,15 @@ This plugins allows you send batch email to ticket assigned personal
 
 ================== Installation ================
 
-Copy this plugin into vendor/plugins/
+* Copy this plugin into vendor/plugins/
+* run "rake db:migrate_plugins"
+* Grant permissions under "Roles and Permissions"
+* Add module in project's setting
 
+================= Change Log ==================
 
-================== Change Log ==================
-
-0.0.1 Finished implementation of basic features
-
+[11 Jun 2010] Version: 0.0.1 (Beta)
+Finished implementation of basic features
 
 ========== About me and this plugin ============
 
