@@ -8,7 +8,7 @@ class Reminder < ActiveRecord::Base
   validates_presence_of :message
 
   def notify_all
-    mail_list = query.issues().group_by(&:assigned_to)
+    mail_list = query.issues(include => [:assigned_to]).group_by(&:assigned_to)
     mail_list.each do |assignee, issues|
 
       # TODO: Remove assignee.nil and replace with proper handling
