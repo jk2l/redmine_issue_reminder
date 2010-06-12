@@ -8,22 +8,11 @@ class Reminder < ActiveRecord::Base
   validates_presence_of :message
 
   def notify_all
-    # TODO: Remove condition
-    list = query.issues(:include => [:assigned_to], :conditions => ["assigned_to_id != 0"])
+    mail_list = query.issues().group_by(&:assigned_to)
+    mail_list.each do |assignee, issues|
 
-    users = {}
-    list.each do |issue|
-      if issue.assigned_to == nil
-        # TODO: Replace this with proper handling
-        next
-      end
-
-      users[issue.assigned_to] = [] if users[issue.assigned_to] == nil
-      users[issue.assigned_to] << issue
-    end
-
-    users.each do |user, issues|
-      ReminderMailer.deliver_send_notification(self, user.mail, issues)
+      # TODO: Remove assignee.nil and replace with proper handling
+      ReminderMailer.deliver_send_notification(self, assignee.mail, issues) unless assignee.nil?
     end
   end
 end
