@@ -1,12 +1,12 @@
 class ReminderMailer < Mailer
   unloadable
 
-  def send_notification(reminder, recipients, issues)
+  def send_notification(reminder, mailAddress, issues)
     subject reminder.query.name
-    recipients recipients
+    recipients mailAddress
 
     body :reminder => reminder,
-         :recipients => recipients,
+         :recipients => mailAddress,
          :issues => issues
 
     render_multipart('send_notification', body)

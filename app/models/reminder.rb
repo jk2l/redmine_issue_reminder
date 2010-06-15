@@ -10,7 +10,6 @@ class Reminder < ActiveRecord::Base
   def notify_all
     mail_list = query.issues(:include => [:assigned_to]).group_by(&:assigned_to)
     mail_list.each do |assignee, issues|
-
       # TODO: Remove assignee.nil and replace with proper handling
       ReminderMailer.deliver_send_notification(self, assignee.mail, issues) unless assignee.nil?
     end
